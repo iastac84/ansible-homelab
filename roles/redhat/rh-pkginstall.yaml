@@ -1,0 +1,17 @@
+---
+- name: Enable EPEL Repository - RedHat based
+  dnf:
+    name: 
+      - epel-release
+      - epel-next-release
+    state: latest
+
+- name: Enable CRB repository - RedHat based
+  command:
+    cmd: dnf config-manager --enable crb
+
+- name: Install packages - RedHat based
+  dnf:
+    name: 
+      - neofetch
+    state: latest

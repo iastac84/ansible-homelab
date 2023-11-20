@@ -1,0 +1,10 @@
+---
+- name: Update repositories cache - Debian based
+  apt:
+    update_cache: yes
+
+- name: Install packages - Debian based
+  apt:
+    name:
+      - neofetch
+    state: latest

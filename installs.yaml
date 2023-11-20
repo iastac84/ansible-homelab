@@ -1,0 +1,13 @@
+---
+
+- hosts: all
+  gather_facts: true
+  become: true
+  tasks: 
+    - name: 'Install packages for RedHat based distros'
+      include_tasks: ./roles/redhat/rh-pkginstall.yaml
+      when: ansible_facts['distribution_file_variety'] == 'RedHat'
+    - name: 'Install packages for Debian based distros'
+      include_tasks: ./roles/debian/deb-pkginstall.yaml
+      when: ansible_facts['distribution_file_variety'] == 'Debian'
+
