@@ -3,7 +3,7 @@
   dnf:
     name: 
       - epel-release
-      - epel-next-release
+        ###      - epel-next-release
     state: latest
 
 - name: Enable CRB repository - RedHat based
