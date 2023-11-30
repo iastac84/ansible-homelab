@@ -5,8 +5,8 @@
   become: true
   tasks: 
     - name: 'Install packages for RedHat based distros'
-      include_tasks: ./roles/redhat/pkginstalls/main.yaml 
+      include_tasks: ./roles/redhat/pkginstalls/tasks/main.yaml 
       when: ansible_facts['distribution_file_variety'] == 'RedHat'
     - name: 'Install packages for Debian based distros'
-      include_tasks: ./roles/debian/pkginstalls/main.yaml
+      include_tasks: ./roles/debian/pkginstalls/tasks/main.yaml
       when: ansible_facts['distribution_file_variety'] == 'Debian'
