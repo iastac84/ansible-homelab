@@ -52,39 +52,6 @@
   shell: echo "1" > /proc/sys/net/bridge/bridge-nf-call-iptables
   tags: [bridge]
 
-- name: Set up docker repository
-  yum_repository:
-    name: docker
-    description: Docker CE Repository
-    file: docker
-    baseurl: https://download.docker.com/linux/centos/docker-ce.repo
-    enabled: yes
-    gpgcheck: no
-    repo_gpgcheck: no
-
-- name: Install Docker CE
-  package:
-    name: docker-ce
-    state: present
-
-- name: Install Docker CE CLI
-  package:
-    name: docker-ce-cli
-    state: present
-
-- name: Install containerd.io
-  package:
-    name: containerd.io
-  state: present
-
-- name: Add user to the docker group
-  user:
-    name: istacey
-    groups: docker
-    append: yes
-
-  tags: [docker_install]
-
 - name: Add Kubernetes repo
   yum_repository:
     name: kubernetes
@@ -103,4 +70,29 @@
       - kubectl
     state: present
   tags: [kubectl_install]
+
+- name: Set up docker repository
+  yum_repository:
+    name: docker
+    description: Docker CE Repository
+    file: docker
+    baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+    enabled: yes
+    gpgcheck: yes
+    repo_gpgcheck: yes
+
+- name: Install Docker CE
+  package:
+    name: 
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: present
+
+- name: Add user to the docker group
+  user:
+    name: "{{ item.username }}"
+    groups: docker
+    append: yes
+  tags: [docker_install]
 

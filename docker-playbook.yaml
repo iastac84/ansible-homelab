@@ -1,0 +1,37 @@
+---
+- name: Install Docker Engine and containerd
+  hosts: rockesxi001
+  gather_facts: true
+  become: true
+  tasks:
+    - name: Set up docker repository
+      yum_repository:
+        name: docker
+        description: Docker CE Repository
+        file: docker
+        baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+        enabled: yes
+        gpgcheck: yes
+        repo_gpgcheck: yes
+
+
+    - name: Install the latest version of Docker Engine and containerd
+      dnf:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+
+    - name: Add user to the docker group
+      user:
+        name: istacey
+        groups: docker
+        append: yes
+
+  handlers:
+    - name: Start and enable docker
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
