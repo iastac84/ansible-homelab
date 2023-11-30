@@ -72,14 +72,10 @@
   tags: [kubectl_install]
 
 - name: Set up docker repository
-  yum_repository:
-    name: docker
-    description: Docker CE Repository
-    file: docker
-    baseurl: https://download.docker.com/linux/centos/docker-ce.repo
-    enabled: yes
-    gpgcheck: yes
-    repo_gpgcheck: yes
+  shell: |
+    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  args:
+    warn: no
 
 - name: Install Docker CE
   package:
