@@ -74,19 +74,29 @@
 - name: Set up docker repository
   shell: |
     yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  tags: [dockerrepo]
 
 - name: Install Docker CE
-  package:
+  dnf:
     name: 
       - docker-ce
       - docker-ce-cli
       - containerd.io
     state: present
+  notify:
+    - start docker
+  tags: [docker_install]
 
 - name: Add user to the docker group
   user:
     name: istacey
     groups: docker
     append: yes
-  tags: [docker_install]
+  tags: [docker_users]
 
+- name: start docker
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+  tags: [docker_start]
