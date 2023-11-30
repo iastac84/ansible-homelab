@@ -74,8 +74,6 @@
 - name: Set up docker repository
   shell: |
     yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-  args:
-    warn: no
 
 - name: Install Docker CE
   package:
@@ -87,7 +85,7 @@
 
 - name: Add user to the docker group
   user:
-    name: "{{ item.username }}"
+    name: istacey
     groups: docker
     append: yes
   tags: [docker_install]
