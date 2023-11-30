@@ -1,0 +1,10 @@
+---
+
+- hosts: rockesxi001
+  gather_facts: true
+  become: true
+  tasks: 
+    - name: 'Install Docker Engine and containerd on selected hosts'
+      include_tasks: ./roles/docker-rh/tasks/main.tf
+      when: ansible_facts['distribution_file_variety'] == 'RedHat'
+
