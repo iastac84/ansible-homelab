@@ -94,6 +94,13 @@
     append: yes
   tags: [docker_users]
 
+- name: Add user to the docker group
+  user:
+    name: rancher
+    groups: docker
+    append: yes
+  tags: [docker_users]
+
 - name: start docker
   systemd:
     name: docker
