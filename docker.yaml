@@ -1,12 +1,13 @@
 ---
 
-- hosts: rockesxi001
+- hosts: rockesxi-rancher
   gather_facts: true
   become: true
     #  vars_files:
     #- ./roles/redhat/docker/vars/docker-users.yaml
   roles: 
-    -  { role: roles/redhat/docker }
+    -  roles/redhat/docker
+#   -  { role: roles/redhat/docker }
       #      when: ansible_facts['distribution_file_variety'] == 'RedHat'
 
 
