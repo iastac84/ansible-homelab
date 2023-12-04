@@ -23,6 +23,19 @@
     state: present
   tags: [packageinstalls]
 
+- name: Put SELinux in permissive mode, logging actions that would be blocked.
+  selinux:
+    policy: targeted
+    state: permissive
+  tags: [selinux_permissive]
+
+- name: stop and disable firewalld
+  systemd:
+    name: firewalld
+    state: stopped
+    enabled: no
+  tags: [stop_firewalld]
+
 - name: Update sshd_config AllowAgentForwarding
   lineinfile:
     path: /etc/ssh/sshd_config
