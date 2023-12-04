@@ -96,8 +96,8 @@
       - docker-ce-cli
       - containerd.io
     state: present
-  notify:
-    - start docker
+      #notify:
+      #- start docker
   tags: [docker_install]
 
 - name: Add user to the docker group
